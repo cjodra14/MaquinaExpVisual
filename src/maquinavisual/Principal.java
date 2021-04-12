@@ -50,7 +50,7 @@ public class Principal {
 	private JComboBox comboCentimos;
 	private JLabel lblCents;
 	private JLabel lblEuros;
-	private JButton btnNewButton;
+	private JButton btnRetirar;
 	
 	
 	
@@ -103,7 +103,8 @@ public class Principal {
 				if(primerclick) {
 					tfPrecio.setText("1.00");
 					primerclick=false;					
-				}{
+				}else{
+					tfPrecio.setText(null);
 					primerclick=true;
 				}
 			}
@@ -207,6 +208,10 @@ public class Principal {
 		tfPrecio.setColumns(10);
 		
 		comboEuros = new JComboBox();
+		comboEuros.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		comboEuros.setBounds(35, 96, 88, 22);
 		panel_2.add(comboEuros);
 		for(int i=0;i<6;i++) {						
@@ -218,6 +223,11 @@ public class Principal {
 		panel_2.add(lblEuros);
 		
 		comboCentimos = new JComboBox();
+		comboCentimos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		comboCentimos.setBounds(35, 156, 88, 22);
 		panel_2.add(comboCentimos);
 		for(float i=0f;i<1f;i=i+0.05f) {
@@ -228,9 +238,21 @@ public class Principal {
 		lblCents.setBounds(10, 131, 46, 14);
 		panel_2.add(lblCents);
 		
-		btnNewButton = new JButton("\u20AC");
-		btnNewButton.setBounds(77, 212, 46, 23);
-		panel_2.add(btnNewButton);
+		btnRetirar = new JButton("\u20AC");
+		btnRetirar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dbUsuarios.cambiarSaldo((String)comboUsers.getSelectedItem(), "Usuarios" , 0.0f);
+				try {
+					user=dbUsuarios.consultaDatos("Usuarios");
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				verSaldo();
+			}
+		});
+		btnRetirar.setBounds(77, 212, 46, 23);
+		panel_2.add(btnRetirar);
 		
 		JLabel lblRetirar = new JLabel("Retirar");
 		lblRetirar.setBounds(10, 200, 46, 14);
@@ -264,7 +286,7 @@ public class Principal {
 		
 	}
 	
-	private void verSaldo() {
+	private void verSaldo() {		
 		Usuarios e=new Usuarios(); 
 		Iterator<Usuarios> it = user.iterator();
 		while(it.hasNext()) {
