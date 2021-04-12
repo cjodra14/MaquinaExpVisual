@@ -13,7 +13,7 @@ public class Conexion {
 	String nombreTabla;
 	String Nombre;
 	float saldo;
-	ArrayList<Usuarios> users=new ArrayList();
+	ArrayList<Usuarios> users=new ArrayList<Usuarios>();
 	
 	
 	public void conectar() {
@@ -80,6 +80,23 @@ public class Conexion {
 			System.out.println("Fallo al hacer la consulta");
 		}
 		return users;
+	}
+	public void cambiarSaldo(String Nombre, String nombreTabla, Float saldo) {
+		this.Nombre=Nombre;
+		this.nombreTabla=nombreTabla;
+		this.saldo=saldo;
+		String sqlInsert="UPDATE "+nombreTabla+" SET Saldo="+saldo+ " WHERE NOMBRE='"+Nombre+"'";
+		try {
+			conectar();
+			sentencia=c.createStatement();
+			sentencia.executeUpdate(sqlInsert);
+			sentencia.close();
+			c.close();			
+			System.out.println("Saldo cambiado con exito");
+		}catch(Exception e) {
+			System.out.println("Error al cambiar el saldo");
+			e.printStackTrace();
+		}
 	}
 
 }

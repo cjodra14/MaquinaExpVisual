@@ -16,7 +16,7 @@ public class Principal {
 	private JTextField tfUser;
 	private JTextField tfSaldoUser;
 	private ArrayList<Usuarios> user=new ArrayList<Usuarios>();
-	private JComboBox comboUsers;
+	private JComboBox<String> comboUsers;
 	private JLabel lblSaldoUser;
 	private JLabel lblNewUser;
 	private JPanel panelBebidas;
@@ -46,6 +46,11 @@ public class Principal {
 	private ImageIcon icoMilk= new ImageIcon("resources/002-milk_box.png");
 	private ImageIcon icoChocoMilk= new ImageIcon("resources/014-chocolate_milk.png");
 	private ImageIcon icoStraMilk= new ImageIcon("resources/033-strawberry_milk.png");
+	private JComboBox comboEuros;
+	private JComboBox comboCentimos;
+	private JLabel lblCents;
+	private JLabel lblEuros;
+	private JButton btnNewButton;
 	
 	
 	
@@ -163,7 +168,7 @@ public class Principal {
 		panelUser.add(tfUser);
 		tfUser.setColumns(10);
 		
-		comboUsers = new JComboBox();
+		comboUsers = new JComboBox<String>();
 		comboUsers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				verSaldo();
@@ -200,6 +205,36 @@ public class Principal {
 		tfPrecio.setBounds(10, 36, 113, 29);
 		panel_2.add(tfPrecio);
 		tfPrecio.setColumns(10);
+		
+		comboEuros = new JComboBox();
+		comboEuros.setBounds(35, 96, 88, 22);
+		panel_2.add(comboEuros);
+		for(int i=0;i<6;i++) {						
+			comboEuros.addItem(i);
+		}
+		
+		lblEuros = new JLabel("Euros");
+		lblEuros.setBounds(10, 76, 46, 14);
+		panel_2.add(lblEuros);
+		
+		comboCentimos = new JComboBox();
+		comboCentimos.setBounds(35, 156, 88, 22);
+		panel_2.add(comboCentimos);
+		for(float i=0f;i<1f;i=i+0.05f) {
+			comboCentimos.addItem(String.format(Locale.US,"%.2f", i));
+		}
+		
+		lblCents = new JLabel("Centimos");
+		lblCents.setBounds(10, 131, 46, 14);
+		panel_2.add(lblCents);
+		
+		btnNewButton = new JButton("\u20AC");
+		btnNewButton.setBounds(77, 212, 46, 23);
+		panel_2.add(btnNewButton);
+		
+		JLabel lblRetirar = new JLabel("Retirar");
+		lblRetirar.setBounds(10, 200, 46, 14);
+		panel_2.add(lblRetirar);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBounds(20, 647, 444, 76);
