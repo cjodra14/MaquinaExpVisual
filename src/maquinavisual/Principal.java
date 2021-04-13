@@ -51,6 +51,7 @@ public class Principal {
 	private JLabel lblCents;
 	private JLabel lblEuros;
 	private JButton btnRetirar;
+	boolean primerclick = true;
 	
 	
 	
@@ -84,6 +85,7 @@ public class Principal {
 	 * @throws SQLException 
 	 */
 	private void initialize() throws SQLException {
+		consultar();
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
 		frame.setBounds(100, 100, 650, 800);
@@ -98,12 +100,12 @@ public class Principal {
 		btnCoke = new JButton(resizeIcon(icoCoke,145,197));
 		btnCoke.setBorderPainted(false);
 		btnCoke.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				boolean primerclick = true;
-				if(primerclick) {
-					tfPrecio.setText("1.00");
+			public void actionPerformed(ActionEvent arg0) {	
+				tfPrecio.setText("1.00");
+				if(primerclick) {					
 					primerclick=false;					
-				}else{
+				}else{				
+					comprar();
 					tfPrecio.setText(null);
 					primerclick=true;
 				}
@@ -113,34 +115,130 @@ public class Principal {
 		panelBebidas.add(btnCoke);
 		
 		btnEnergyDrink = new JButton(resizeIcon(icoEnergyDrink,145,197));
+		btnEnergyDrink.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tfPrecio.setText("1.50");
+				if(primerclick) {					
+					primerclick=false;					
+				}else{				
+					comprar();
+					tfPrecio.setText(null);
+					primerclick=true;
+				}
+			}
+		});
 		btnEnergyDrink.setBorderPainted(false);
 		panelBebidas.add(btnEnergyDrink);
 		
 		btnWater = new JButton(resizeIcon(icoWater,145,197));
+		btnWater.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tfPrecio.setText("0.30");
+				if(primerclick) {					
+					primerclick=false;					
+				}else{				
+					comprar();
+					tfPrecio.setText(null);
+					primerclick=true;
+				}
+			}
+		});
 		btnWater.setBorderPainted(false);
 		panelBebidas.add(btnWater);
 		
 		btnOrangeJuice = new JButton(resizeIcon(icoOrange,145,197));
+		btnOrangeJuice.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tfPrecio.setText("1.20");
+				if(primerclick) {					
+					primerclick=false;					
+				}else{				
+					comprar();
+					tfPrecio.setText(null);
+					primerclick=true;
+				}
+			}
+		});
 		btnOrangeJuice.setBorderPainted(false);
 		panelBebidas.add(btnOrangeJuice);
 		
 		btnCoffee = new JButton(resizeIcon(icoCoffee,145,197));
+		btnCoffee.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tfPrecio.setText("0.40");
+				if(primerclick) {					
+					primerclick=false;					
+				}else{				
+					comprar();
+					tfPrecio.setText(null);
+					primerclick=true;
+				}
+			}
+		});
 		btnCoffee.setBorderPainted(false);
 		panelBebidas.add(btnCoffee);
 		
 		btnInfusion = new JButton(resizeIcon(icoInfusion,145,197));
+		btnInfusion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tfPrecio.setText("0.35");
+				if(primerclick) {					
+					primerclick=false;					
+				}else{				
+					comprar();
+					tfPrecio.setText(null);
+					primerclick=true;
+				}
+			}
+		});
 		btnInfusion.setBorderPainted(false);
 		panelBebidas.add(btnInfusion);
 		
 		btnChocoMilk = new JButton(resizeIcon(icoChocoMilk,145,197));
+		btnChocoMilk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tfPrecio.setText("0.80");
+				if(primerclick) {					
+					primerclick=false;					
+				}else{				
+					comprar();
+					tfPrecio.setText(null);
+					primerclick=true;
+				}
+			}
+		});
 		btnChocoMilk.setBorderPainted(false);
 		panelBebidas.add(btnChocoMilk);
 		
 		btnMilk = new JButton(resizeIcon(icoMilk,145,197));
+		btnMilk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tfPrecio.setText("0.75");
+				if(primerclick) {					
+					primerclick=false;					
+				}else{				
+					comprar();
+					tfPrecio.setText(null);
+					primerclick=true;
+				}
+			}
+		});
 		btnMilk.setBorderPainted(false);
 		panelBebidas.add(btnMilk);
 		
 		btnStraMilk = new JButton(resizeIcon(icoStraMilk,145,197));
+		btnStraMilk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tfPrecio.setText("0.80");
+				if(primerclick) {					
+					primerclick=false;					
+				}else{				
+					comprar();
+					tfPrecio.setText(null);
+					primerclick=true;
+				}
+			}
+		});
 		btnStraMilk.setBorderPainted(false);
 		panelBebidas.add(btnStraMilk);
 		
@@ -154,12 +252,7 @@ public class Principal {
 		tfUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {							
 				dbUsuarios.insertarDatos((String) tfUser.getText(),"Usuarios");
-				try {
-					user=dbUsuarios.consultaDatos("Usuarios");
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				consultar();
 				Usuarios e=new Usuarios(); 				
 					e=user.get(user.size()-1);				
 					comboUsers.addItem(e.getNombre());}				
@@ -210,6 +303,17 @@ public class Principal {
 		comboEuros = new JComboBox();
 		comboEuros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				float i=0f;
+				
+				try {
+				i=(float)((int)comboEuros.getSelectedItem());
+				i=i+Float.valueOf(tfSaldoUser.getText());
+				dbUsuarios.cambiarSaldo((String)comboUsers.getSelectedItem(), "Usuarios" , i);
+				}catch(Exception e) {					
+				}
+				updateSaldoLocal(i);
+				verSaldo();
+				
 			}
 		});
 		comboEuros.setBounds(35, 96, 88, 22);
@@ -225,6 +329,17 @@ public class Principal {
 		comboCentimos = new JComboBox();
 		comboCentimos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+
+				float i=0f;
+				try {
+				i=Float.valueOf((String) comboCentimos.getSelectedItem());
+				i=i+Float.valueOf(tfSaldoUser.getText());
+				dbUsuarios.cambiarSaldo((String)comboUsers.getSelectedItem(), "Usuarios" , i);
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+				updateSaldoLocal(i);
+				verSaldo();
 				
 			}
 		});
@@ -242,12 +357,7 @@ public class Principal {
 		btnRetirar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dbUsuarios.cambiarSaldo((String)comboUsers.getSelectedItem(), "Usuarios" , 0.0f);
-				try {
-					user=dbUsuarios.consultaDatos("Usuarios");
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				updateSaldoLocal(0f);
 				verSaldo();
 			}
 		});
@@ -262,7 +372,7 @@ public class Principal {
 		panel_3.setBounds(20, 647, 444, 76);
 		frame.getContentPane().add(panel_3);
 		panel_3.setLayout(null);
-		user=dbUsuarios.consultaDatos("Usuarios");
+		
 		/*conexionDB();
 		try {
 			crearTablaDB();
@@ -270,8 +380,7 @@ public class Principal {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
-		colocarUsuarios();
-		
+		colocarUsuarios();		
 	}
 	
 	private void colocarUsuarios() {
@@ -281,32 +390,58 @@ public class Principal {
 		while(it.hasNext()) {
 			e=it.next();
 			comboUsers.addItem(e.getNombre());
-		}
-	
-		
+		}	
 	}
 	
+	private void consultar() {
+		try {
+			user=dbUsuarios.consultaDatos("Usuarios");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	private void verSaldo() {		
 		Usuarios e=new Usuarios(); 
 		Iterator<Usuarios> it = user.iterator();
-		while(it.hasNext()) {
-			
+		while(it.hasNext()) {			
 			e=it.next();
 			if(e.getNombre().equals((String)comboUsers.getSelectedItem())) {
-				tfSaldoUser.setText(String.valueOf(e.getSaldo()));
+				tfSaldoUser.setText(String.format(Locale.US,"%.2f", e.getSaldo()));
 			}
-		}
-		
+		}		
+	}
+	public void updateSaldoLocal(Float cambio) {
+		Usuarios e=new Usuarios(); 
+		Iterator<Usuarios> it = user.iterator();
+		while(it.hasNext()) {			
+			e=it.next();
+			if(e.getNombre().equals((String)comboUsers.getSelectedItem())) {
+				user.get(e.getRowid()-1).setSaldo(cambio);;
+			}
+		}		
 	}
 	
-	void addUserListado() {
+	public void comprar(){
+		float precioArticulo=0f;
+		float saldocomprobar=0f;
+		float i=0f;
+		
+		
+		saldocomprobar=Float.valueOf(tfSaldoUser.getText());
+		precioArticulo=Float.valueOf(tfPrecio.getText());
+		
+		if(saldocomprobar>precioArticulo) {
 		try {
-			src = new Scanner(registro);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			frame.setTitle("Extrayendo");
+			i=saldocomprobar-precioArticulo;
+		dbUsuarios.cambiarSaldo((String)comboUsers.getSelectedItem(), "Usuarios" , i);
+		updateSaldoLocal(i);
+		}catch(Exception e) {
 			e.printStackTrace();
+		}		
+		verSaldo();}else {
+			frame.setTitle("Saldo insuficiente");
 		}
-		//String 
 	}
 	
 	void conexionDB() {
@@ -314,7 +449,7 @@ public class Principal {
 	}
 	void crearTablaDB() throws SQLException {
 		dbUsuarios.crearTabla("Usuarios");
-	}
+	}	
 	
 	private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {
 	    Image img = icon.getImage();  
