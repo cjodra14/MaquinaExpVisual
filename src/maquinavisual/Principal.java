@@ -307,7 +307,7 @@ public class Principal {
 				
 				try {
 				i=(float)((int)comboEuros.getSelectedItem());
-				i=i+Float.valueOf(tfSaldoUser.getText());
+				i=i+Float.parseFloat(tfSaldoUser.getText());
 				dbUsuarios.cambiarSaldo((String)comboUsers.getSelectedItem(), "Usuarios" , i);
 				}catch(Exception e) {					
 				}
@@ -332,8 +332,8 @@ public class Principal {
 
 				float i=0f;
 				try {
-				i=Float.valueOf((String) comboCentimos.getSelectedItem());
-				i=i+Float.valueOf(tfSaldoUser.getText());
+				i=Float.parseFloat((String) comboCentimos.getSelectedItem());
+				i=i+Float.parseFloat(tfSaldoUser.getText());
 				dbUsuarios.cambiarSaldo((String)comboUsers.getSelectedItem(), "Usuarios" , i);
 				}catch(Exception e) {
 					e.printStackTrace();
@@ -427,8 +427,8 @@ public class Principal {
 		float i=0f;
 		
 		
-		saldocomprobar=Float.valueOf(tfSaldoUser.getText());
-		precioArticulo=Float.valueOf(tfPrecio.getText());
+		saldocomprobar=Float.parseFloat(tfSaldoUser.getText());
+		precioArticulo=Float.parseFloat(tfPrecio.getText());
 		
 		if(saldocomprobar>precioArticulo) {
 		try {
